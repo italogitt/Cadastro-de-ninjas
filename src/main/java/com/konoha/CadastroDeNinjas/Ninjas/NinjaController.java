@@ -1,4 +1,4 @@
-package com.konoha.CadastroDeNinjas;
+package com.konoha.CadastroDeNinjas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
