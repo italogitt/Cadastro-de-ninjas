@@ -18,12 +18,21 @@ public class MissoesModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+
+
+    @Column(name = "descricao")
     private String descricao;
-    private char ranking;
+
+
+    @Column(name = "dificuldade")
+    private char dificuldade;
+
 
     //@OneToMany - Uma missoa pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
+    @Column(name = "ninjas")
     private List<NinjaModel> ninjas;
 
 }
