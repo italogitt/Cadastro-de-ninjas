@@ -2,14 +2,10 @@ package com.konoha.CadastroDeNinjas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("ninjas")
 
 public class NinjaController {
 
-    @GetMapping("/boasvindas")
-    public String boasVindas(){
-        return "Essa é minha primeira mensagem nessa rota.";
-    }
 
     // Adicionar Ninja (Create)
     @PostMapping("/criar")
@@ -18,13 +14,13 @@ public class NinjaController {
     }
 
     // Mostrar todos os ninjas (Read)
-    @GetMapping("/all")
+    @GetMapping("/listar")
     public String mostrarTodosOsNinjas(){
         return "Mostrar todos os ninjas";
     }
 
     // Mostrar Ninja por ID (Create)
-    @GetMapping("/allID")
+    @GetMapping("/listarID")
     public String mostrarTodosOsNinjasPorID(){
         return "Mostrar todos os IDs ninjas";
     }
