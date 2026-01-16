@@ -1,11 +1,18 @@
 package com.konoha.CadastroDeNinjas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("ninjas")
 
 public class NinjaController {
 
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     // Adicionar Ninja (Create)
     @PostMapping("/criar")
@@ -15,8 +22,8 @@ public class NinjaController {
 
     // Mostrar todos os ninjas (Read)
     @GetMapping("/listar")
-    public String mostrarTodosOsNinjas(){
-        return "Mostrar todos os ninjas";
+    public List<NinjaModel> listarNinjas(){
+        return ninjaService.listarNinjas();
     }
 
     // Mostrar Ninja por ID (Create)
