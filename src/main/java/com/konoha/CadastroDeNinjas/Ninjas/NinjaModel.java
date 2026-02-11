@@ -7,7 +7,8 @@ import lombok.*;
 // Transforma uma classe em uma entidade do DB
 @Entity
 @Table(name = "tb_ninjas")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -17,7 +18,6 @@ public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
 
