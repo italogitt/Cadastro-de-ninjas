@@ -10,38 +10,34 @@ import java.util.List;
 
 public class MissoesController {
 
-    //Config basicas
 
     private MissoesService missoesService;
+
 
     public MissoesController(MissoesService missoesService) {
         this.missoesService = missoesService;
     }
 
-    // GET - mandar uma requisicao para mostrar as missoes
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissoes(){
+    public List<MissoesDTO> listarMissoes(){
         return missoesService.ListarMissoes();
     }
 
     @GetMapping("/listar/{id}")
-    public MissoesModel listarMissaoPorId(@PathVariable Long id){
+    public MissoesDTO listarMissaoPorId(@PathVariable Long id){
         return missoesService.ListarMissaoPorId(id);
     }
 
-    // POST - mandar uma requisicao para criar as missoes
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missao){
         return missoesService.criarMissao(missao);
     }
 
-    // PUT - mandar uma requisicao para alterar as missoes
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missao alterada com sucesso";
+    @PutMapping("/alterar/{id}")
+    public MissoesDTO alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missaoAtualizada){
+        return missoesService.alterarMissao(id, missaoAtualizada);
     }
 
-    // DELETE - mandar uma requisicao para deletar as missoes
     @DeleteMapping("/deletar/{id}")
     public void deletarMissaoPorId(@PathVariable Long id){
         missoesService.deletarMissaoPorId(id);
