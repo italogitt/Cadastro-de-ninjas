@@ -33,7 +33,7 @@ public class NinjaService {
 
     //Criar um novo ninja
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
-        NinjaModel ninja = new NinjaMapper().map(ninjaDTO);
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninja = ninjaRepository.save(ninja);
         return ninjaMapper.map(ninja);
     }
