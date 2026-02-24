@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Ninja</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            padding:40px;
+        }
+
+        .card{
+            max-width:500px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+            text-align:center;
+        }
+
+        img{
+            width:150px;
+            height:150px;
+            object-fit:cover;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        h2{
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#555;
+        }
+
+        a{
+            display:inline-block;
+            margin-top:20px;
+            padding:10px 18px;
+            background:#3498db;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+        }
+
+        a:hover{
+            background:#2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <img th:src="${ninja.imgUrl}">
+
+    <h2 th:text="${ninja.nome}"></h2>
+
+    <p><b>ID:</b> <span th:text="${ninja.id}"></span></p>
+    <p><b>Idade:</b> <span th:text="${ninja.idade}"></span></p>
+    <p><b>Email:</b> <span th:text="${ninja.email}"></span></p>
+    <p><b>Rank:</b> <span th:text="${ninja.rank}"></span></p>
+
+    <div th:if="${ninja.missoes != null}">
+        <p><b>Missão:</b> <span th:text="${ninja.missoes.nome}"></span></p>
+        <p><b>Dificuldade:</b> <span th:text="${ninja.missoes.dificuldade}"></span></p>
+    </div>
+
+    <a th:href="@{/ninjas/ui/listar}">Voltar</a>
+
+</div>
+
+</body>
+</html>

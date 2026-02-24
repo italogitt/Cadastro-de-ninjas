@@ -1,13 +1,7 @@
 package com.konoha.CadastroDeNinjas.Ninjas;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
@@ -31,6 +25,31 @@ public class NinjaControllerUi {
     @GetMapping("/deletar/{id}")
     public String deletarNinjaPorId(@PathVariable Long id){
         ninjaService.deletarNinjaPorId(id);
+        return "redirect:/ninjas/ui/listar";
+    }
+
+    @GetMapping("/listar/{id}")
+    public String mostrarDetalhes(@PathVariable Long id, Model model){
+        NinjaDTO ninja = ninjaService.listarNinjasId(id);
+        model.addAttribute("ninja", ninja);
+        return "detalhes";
+    }
+
+    @PostMapping("/alterar/{id}")
+    public String alterarNinja(@PathVariable Long id, NinjaDTO ninjaDTO){
+        ninjaService.atualizarNinja(id, ninjaDTO);
+        return "redirect:/ninjas/ui/listar";
+    }
+
+    @GetMapping("/novo")
+    public String mostrarFormularioNovoNinja(Model model){
+        model.addAttribute("ninja", new NinjaDTO());
+        return "criarNinja";
+    }
+
+    @PostMapping("/salvar")
+    public String salvarNinja(NinjaDTO ninjaDTO){
+        ninjaService.criarNinja(ninjaDTO);
         return "redirect:/ninjas/ui/listar";
     }
 

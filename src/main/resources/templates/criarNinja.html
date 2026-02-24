@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Ninja</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f9;
+            padding:40px;
+        }
+
+        .card{
+            max-width:500px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border-radius:6px;
+            border:1px solid #ccc;
+        }
+
+        button{
+            background:#2ecc71;
+            color:white;
+            padding:10px 18px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#27ae60;
+        }
+
+        a{
+            margin-left:10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Criar Ninja</h2>
+
+    <form th:action="@{/ninjas/ui/salvar}" method="post">
+
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="number" name="idade" placeholder="Idade" required>
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="rank" placeholder="Rank">
+        <input type="text" name="imgUrl" placeholder="URL da imagem">
+
+        <button type="submit">Salvar</button>
+        <a href="/ninjas/ui/listar">Cancelar</a>
+
+    </form>
+</div>
+
+</body>
+</html>

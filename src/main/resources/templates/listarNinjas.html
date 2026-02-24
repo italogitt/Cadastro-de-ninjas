@@ -1,5 +1,5 @@
-<!
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,13 @@
 
         h1{
             text-align:center;
-            margin-bottom:30px;
+            margin-bottom:20px;
+        }
+
+        .topo{
+            display:flex;
+            justify-content:flex-end;
+            margin-bottom:15px;
         }
 
         table{
@@ -38,11 +44,6 @@
             text-align:center;
         }
 
-        th{
-            font-size:14px;
-            letter-spacing:0.5px;
-        }
-
         tbody tr{
             border-bottom:1px solid #eee;
             transition:0.2s;
@@ -53,104 +54,161 @@
         }
 
         img{
-            border-radius:8px;
+            width:80px;
+            height:80px;
             object-fit:cover;
+            border-radius:8px;
             border:2px solid #ddd;
         }
 
-        /* BOTÕES */
-
-        a{
+        a, button{
             text-decoration:none;
             padding:8px 14px;
             border-radius:6px;
             font-size:13px;
             margin:2px;
             display:inline-block;
-            transition:0.2s;
+            border:none;
+            cursor:pointer;
+            font-family:inherit;
         }
 
-        a:nth-child(1){
-            background:#3498db;
+        .ver{ background:#3498db; color:white; }
+        .ver:hover{ background:#2980b9; }
+
+        .editar{ background:#f39c12; color:white; }
+        .editar:hover{ background:#d68910; }
+
+        .deletar{ background:#e74c3c; color:white; }
+        .deletar:hover{ background:#c0392b; }
+
+        .salvar{ background:#2ecc71; color:white; }
+        .salvar:hover{ background:#27ae60; }
+
+        .novo{
+            background:#2ecc71;
             color:white;
+            padding:10px 16px;
         }
 
-        a:nth-child(1):hover{
-            background:#2980b9;
+        .novo:hover{
+            background:#27ae60;
         }
 
-        a:nth-child(2){
-            background:#f39c12;
-            color:white;
+        input{
+            padding:6px;
+            border-radius:4px;
+            border:1px solid #ccc;
+            width:90%;
         }
 
-        a:nth-child(2):hover{
-            background:#d68910;
-        }
-
-        a:nth-child(3){
-            background:#e74c3c;
-            color:white;
-        }
-
-        a:nth-child(3):hover{
-            background:#c0392b;
-        }
-
-        small{
-            color:#666;
-            font-size:12px;
+        .oculto{
+            display:none;
         }
     </style>
-
 </head>
+
 <body>
+
 <h1>Lista de Ninjas</h1>
+
+<div class="topo">
+    <a class="novo" href="/ninjas/ui/novo">+ Novo Ninja</a>
+</div>
+
 <table>
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>IMAGEM</th>
-            <th>NOME</th>
-            <th>IDADE</th>
-            <th>EMAIL</th>
-            <th>RANK</th>
-            <th>MISSÕES</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>IMAGEM</th>
+        <th>NOME</th>
+        <th>IDADE</th>
+        <th>EMAIL</th>
+        <th>RANK</th>
+        <th>AÇÕES</th>
+    </tr>
     </thead>
+
     <tbody>
 
-    <tr th:each ="ninja :${ninjas}">
+    <tr th:each="ninja : ${ninjas}">
 
         <td th:text="${ninja.id}"></td>
-        <td> <img th:src="${ninja.imgUrl}" width="100", height="100"></td>
-        <td th:text="${ninja.nome}"></td>
-        <td th:text="${ninja.idade}"></td>
-        <td th:text="${ninja.email}"></td>
-        <td th:text="${ninja.rank}"></td>
-        <td>
-            <div th:if="${ninja.missoes != null}">
-                <strong th:text="${ninja.missoes.nome}"></strong><br>
-                <small>
-                    Dificuldade: <span th:text="${ninja.missoes.dificuldade}"></span>
-                </small>
-            </div>
 
-            <span th:if="${ninja.missoes == null}">
-        Nenhuma missão
-    </span>
+        <td>
+            <img th:src="${ninja.imgUrl}" width="80">
+            <input type="text" name="imgUrl" th:value="${ninja.imgUrl}"
+                   class="editavel oculto" th:form="'form__' + ${ninja.id}">
         </td>
 
         <td>
-            <a th:href="@{/ninjas/ui/#/{id}(id=${ninja.id})}">Ver Detalhes</a>
-            <a th:href="@{/ninjas/ui/#/{id}(id=${ninja.id})}">Alterar</a>
-            <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">Deletar</a>
+            <span th:text="${ninja.nome}" class="texto"></span>
+            <input type="text" name="nome" th:value="${ninja.nome}"
+                   class="editavel oculto" th:form="'form__' + ${ninja.id}">
+        </td>
+
+        <td>
+            <span th:text="${ninja.idade}" class="texto"></span>
+            <input type="number" name="idade" th:value="${ninja.idade}"
+                   class="editavel oculto" th:form="'form__' + ${ninja.id}">
+        </td>
+
+        <td>
+            <span th:text="${ninja.email}" class="texto"></span>
+            <input type="text" name="email" th:value="${ninja.email}"
+                   class="editavel oculto" th:form="'form__' + ${ninja.id}">
+        </td>
+
+        <td>
+            <span th:text="${ninja.rank}" class="texto"></span>
+            <input type="text" name="rank" th:value="${ninja.rank}"
+                   class="editavel oculto" th:form="'form__' + ${ninja.id}">
+        </td>
+
+        <td>
+
+            <form th:id="'form__' + ${ninja.id}"
+                  th:action="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}"
+                  method="post"></form>
+
+            <a class="ver"
+               th:href="@{/ninjas/ui/listar/{id}(id=${ninja.id})}">
+                Ver
+            </a>
+
+            <button type="button" class="editar"
+                    onclick="editarLinha(this)">
+                Alterar
+            </button>
+
+            <button type="submit" class="salvar oculto"
+                    th:form="'form__' + ${ninja.id}">
+                Salvar
+            </button>
+
+            <a class="deletar"
+               th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">
+                Deletar
+            </a>
+
         </td>
 
     </tr>
 
     </tbody>
 </table>
+
+<script>
+    function editarLinha(btn){
+        const linha = btn.closest("tr");
+
+        linha.querySelectorAll(".texto").forEach(e => e.style.display="none");
+        linha.querySelectorAll(".editavel").forEach(e => e.classList.remove("oculto"));
+
+        linha.querySelector(".salvar").classList.remove("oculto");
+        btn.style.display="none";
+    }
+</script>
 
 </body>
 </html>
