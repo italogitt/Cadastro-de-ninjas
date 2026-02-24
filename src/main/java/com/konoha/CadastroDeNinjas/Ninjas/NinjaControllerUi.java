@@ -32,7 +32,7 @@ public class NinjaControllerUi {
     public String mostrarDetalhes(@PathVariable Long id, Model model){
         NinjaDTO ninja = ninjaService.listarNinjasId(id);
         model.addAttribute("ninja", ninja);
-        return "detalhes";
+        return "detalhesNinja";
     }
 
     @PostMapping("/alterar/{id}")
