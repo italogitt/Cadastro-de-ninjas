@@ -125,6 +125,7 @@
         <th>IDADE</th>
         <th>EMAIL</th>
         <th>RANK</th>
+        <th>MISSOES</th>
         <th>AÇÕES</th>
     </tr>
     </thead>
@@ -163,6 +164,16 @@
             <span th:text="${ninja.rank}" class="texto"></span>
             <input type="text" name="rank" th:value="${ninja.rank}"
                    class="editavel oculto" th:form="'form__' + ${ninja.id}">
+        </td>
+
+
+        <td>
+            <span th:if="${ninja.missoes != null}"
+                  th:text="${ninja.missoes.nome}"></span>
+
+                    <span th:if="${ninja.missoes == null}">
+                Sem missão
+            </span>
         </td>
 
         <td>
